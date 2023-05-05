@@ -1,0 +1,67 @@
+//semafaro 1
+const int verde1 = 2;
+const int amarelo1 = 3;
+const int vermelho1 = 4;
+//semafaro 2
+const int verde2 = 6;
+const int amarelo2 = 7;
+const int vermelho2 = 8;
+
+int sensorValue = 0;
+const int potenciometro = A0;
+unsigned long outputValue = 0;
+
+
+void setup() {
+  Serial.begin(9600);
+  
+  pinMode(verde1, OUTPUT);                                          
+  pinMode(amarelo1, OUTPUT);
+  pinMode(vermelho1, OUTPUT);                              
+  pinMode(verde2, OUTPUT);
+  pinMode(amarelo2, OUTPUT);
+  pinMode(vermelho2, OUTPUT);
+
+}
+void loop() {
+  sensorValue = analogRead(potenciometro);
+  outputValue = map(sensorValue, 0, 1023, 10000, 120000);
+  Serial.print("sensor = ");
+  Serial.print(sensorValue);
+  Serial.print("\t output = ");
+  Serial.println(outputValue);
+  //delay(100);
+  
+  digitalWrite(verde1, HIGH);
+  digitalWrite(amarelo1, LOW);
+  digitalWrite(vermelho1, LOW);
+  digitalWrite(verde2, LOW);
+  digitalWrite(amarelo2, LOW);
+  digitalWrite(vermelho2, HIGH);
+  delay(outputValue/2.22);
+
+  digitalWrite(verde1, LOW);
+  digitalWrite(amarelo1, HIGH);
+  digitalWrite(vermelho1, LOW);
+  digitalWrite(verde2, LOW);
+  digitalWrite(amarelo2, LOW);
+  digitalWrite(vermelho2, HIGH);
+  delay(outputValue/20);
+
+  digitalWrite(verde1, LOW);
+  digitalWrite(amarelo1, LOW);
+  digitalWrite(vermelho1, HIGH);
+  digitalWrite(verde2, HIGH);
+  digitalWrite(amarelo2, LOW);
+  digitalWrite(vermelho2, LOW);
+  delay(outputValue/2.22);
+  while(true) {}
+  
+  digitalWrite(verde1, LOW);
+  digitalWrite(amarelo1, LOW);
+  digitalWrite(vermelho1, HIGH);
+  digitalWrite(verde2, LOW);
+  digitalWrite(amarelo2, HIGH);
+  digitalWrite(vermelho2, LOW);
+  delay(outputValue/20);
+}
